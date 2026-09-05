@@ -74,17 +74,22 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Full-Stack Integration: Serve Static Frontend (React/Vite)
+// Full-Stack Integration: Absolute Path Frontend Static Serving (React/Vite)
 const frontendBuildPaths = [
   path.resolve(__dirname, '../../Frontend/dist'),
+  path.resolve(__dirname, '../../Frontend/build'),
+  path.resolve(process.cwd(), 'Personal Finance Tracker/Frontend/dist'),
+  path.resolve(process.cwd(), 'Personal Finance Tracker/Frontend/build'),
   path.resolve(process.cwd(), 'Frontend/dist'),
+  path.resolve(process.cwd(), 'Frontend/build'),
   path.resolve(process.cwd(), 'dist'),
+  path.resolve(process.cwd(), 'build'),
 ];
 
 const frontendDistPath = frontendBuildPaths.find((p) => fs.existsSync(p));
 
 if (frontendDistPath) {
-  console.log(`[Frontend] Serving static production web app from: ${frontendDistPath}`);
+  console.log(`[Frontend] Serving static web application from absolute path: ${frontendDistPath}`);
   app.use(express.static(frontendDistPath));
 
   // Catch-all route for Single Page Application (SPA) client-side routing
@@ -92,8 +97,10 @@ if (frontendDistPath) {
     if (req.path.startsWith('/api')) {
       return next();
     }
-    res.sendFile(path.join(frontendDistPath, 'index.html'));
+    res.sendFile(path.resolve(frontendDistPath, 'index.html'));
   });
+} else {
+  console.log('[Frontend] Static build directory not found. Running in API-only mode.');
 }
 
 // Error Handling Middlewares

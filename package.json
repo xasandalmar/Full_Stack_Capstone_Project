@@ -5,7 +5,7 @@
   "main": "Personal Finance Tracker/Backend/src/server.js",
   "type": "module",
   "scripts": {
-    "build": "cd \"Personal Finance Tracker/Frontend\" && npm install && npm run build",
+    "build": "npm install && cd \"Personal Finance Tracker/Frontend\" && npm install && npm run build",
     "start": "node \"Personal Finance Tracker/Backend/src/server.js\"",
     "dev": "nodemon \"Personal Finance Tracker/Backend/src/server.js\""
   },
