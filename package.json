@@ -1,10 +1,11 @@
 {
   "name": "personal-finance-tracker-root",
   "version": "1.0.0",
-  "description": "Root configuration for Personal Finance Tracker deployment",
+  "description": "Full-stack MERN Personal Finance Tracker",
   "main": "Personal Finance Tracker/Backend/src/server.js",
   "type": "module",
   "scripts": {
+    "build": "cd \"Personal Finance Tracker/Frontend\" && npm install && npm run build",
     "start": "node \"Personal Finance Tracker/Backend/src/server.js\"",
     "dev": "nodemon \"Personal Finance Tracker/Backend/src/server.js\""
   },

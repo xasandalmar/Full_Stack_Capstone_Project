@@ -5,11 +5,11 @@
   "main": "Backend/src/server.js",
   "type": "module",
   "scripts": {
+    "build": "cd Frontend && npm install && npm run build",
     "start": "node Backend/src/server.js",
     "dev": "nodemon Backend/src/server.js"
   },
-
-    "author": "Hassan Abdi",
+  "author": "Hassan Abdi",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",
