@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: personal-finance-tracker-api
+    env: node
+    rootDir: Personal Finance Tracker
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI_PROD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        sync: false
