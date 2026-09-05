@@ -1,3 +1,6 @@
+# Excluded Folders
+Exercises/
+
 # Dependencies
 node_modules/
 .pnpm-store/
