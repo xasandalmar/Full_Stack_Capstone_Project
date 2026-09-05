@@ -1,16 +1,13 @@
 {
-  "name": "personal-finance-tracker-api",
+  "name": "personal-finance-tracker-root",
   "version": "1.0.0",
-  "description": "Production-ready MERN Personal Finance Tracker API",
-  "main": "Backend/src/server.js",
+  "description": "Root configuration for Personal Finance Tracker deployment",
+  "main": "Personal Finance Tracker/Backend/src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node Backend/src/server.js",
-    "dev": "nodemon Backend/src/server.js"
+    "start": "node \"Personal Finance Tracker/Backend/src/server.js\"",
+    "dev": "nodemon \"Personal Finance Tracker/Backend/src/server.js\""
   },
-
-    "author": "Hassan Abdi",
-  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.5.1",
@@ -26,8 +23,5 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "zod": "^3.24.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
   }
 }
