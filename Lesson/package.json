@@ -1,0 +1,15 @@
+{
+  "name": "node.js",
+  "version": "1.0.0",
+  "description": "nodejs for started",
+  "license": "ISC",
+  "author": "Hassan Dalmar",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
