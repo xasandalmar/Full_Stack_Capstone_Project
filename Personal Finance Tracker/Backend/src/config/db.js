@@ -2,28 +2,18 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    const localFallback = 'mongodb://127.0.0.1:27017/finance-tracker';
-    let mongoUri = process.env.MONGO_URI_PROD || process.env.MONGO_URI || process.env.MONGO_URI_DEV || localFallback;
+    const mongoUri = process.env.MONGO_URI_PROD || process.env.MONGO_URI;
 
-    if (typeof mongoUri !== 'string' || mongoUri.trim() === '') {
-      mongoUri = localFallback;
-    }
-
-    // Check if Atlas connection string contains placeholder <db_username> or <db_password>
-    if (mongoUri.includes('<db_username>') || mongoUri.includes('<db_password>')) {
-      console.warn(
-        `\n[MongoDB Notice] Connection URI contains placeholder '<db_username>'.\n` +
-        `Replace <db_username> with your actual MongoDB Atlas database username to connect to Atlas.\n` +
-        `Falling back to local database: ${localFallback}\n`
+    if (!mongoUri || typeof mongoUri !== 'string' || mongoUri.trim() === '') {
+      throw new Error(
+        'MongoDB connection error: Neither MONGO_URI_PROD nor MONGO_URI environment variable is provided.'
       );
-      mongoUri = localFallback;
     }
 
-    const targetLabel = mongoUri.includes('mongodb.net') ? 'MongoDB Atlas Cluster' : 'Local MongoDB Instance';
-    console.log(`[MongoDB] Connecting to ${targetLabel}...`);
+    console.log('[MongoDB] Connecting to database...');
 
     const conn = await mongoose.connect(mongoUri);
-    console.log(`[MongoDB] Successfully Connected to MongoDB Atlas (${conn.connection.host})`);
+    console.log(`[MongoDB] Successfully Connected to MongoDB (${conn.connection.host})`);
     return conn;
   } catch (error) {
     console.error(`[MongoDB Error] Connection failure: ${error.message}`);
