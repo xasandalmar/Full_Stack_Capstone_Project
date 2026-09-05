@@ -27,24 +27,37 @@ app.use(helmet({
   contentSecurityPolicy: false,
 }));
 
-// Configure CORS for local development & production deployments
+// Configure CORS for local development & production deployments (e.g. Vercel)
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  ...(process.env.CLIENT_URL ? [process.env.CLIENT_URL] : []),
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:5000',
+  ...(process.env.CLIENT_URL ? [process.env.CLIENT_URL.trim().replace(/\/+$/, '')] : []),
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      if (!origin) return callback(null, true);
+
+      const cleanOrigin = origin.trim().replace(/\/+$/, '');
+      const isAllowed =
+        allowedOrigins.includes(cleanOrigin) ||
+        allowedOrigins.includes('*') ||
+        cleanOrigin.endsWith('.vercel.app') ||
+        (process.env.CLIENT_URL && cleanOrigin === process.env.CLIENT_URL.trim().replace(/\/+$/, ''));
+
+      if (isAllowed) {
         return callback(null, true);
       }
-      return callback(null, origin);
+
+      return callback(null, true);
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   })
 );
 
